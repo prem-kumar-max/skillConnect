@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SkillConnect</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          position: relative; /* Added to position the video */
+          overflow: hidden; /* Ensure the video doesn't overflow */
+        }
+
+        /* Video background */
+        .background-video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* Ensure the video covers the entire background */
+          z-index: -1; /* Place the video behind the content */
+        }
+
+        .wrapper {
+          position: relative;
+          max-width: 430px;
+          width: 100%;
+          background:rgba(255, 255, 255, 0.63);
+          padding: 34px;
+          border-radius: 6px;
+          box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .wrapper h2 {
+          position: relative;
+          font-size: 22px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .wrapper h2::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 3px;
+          width: 28px;
+          border-radius: 12px;
+          background: #4070f4;
+        }
+
+        .wrapper form {
+          margin-top: 30px;
+        }
+
+        .input-box {
+          height: 52px;
+          margin: 18px 0;
+        }
+
+        form .input-box input {
+          height: 100%;
+          width: 100%;
+          outline: none;
+          padding: 0 15px;
+          font-size: 17px;
+          font-weight: 400;
+          color: #333;
+          border: 1.5px solid #C7BEBE;
+          border-bottom-width: 2.5px;
+          border-radius: 6px;
+          transition: all 0.3s ease;
+        }
+
+        .input-box input:focus,
+        .input-box input:valid {
+          border-color: #4070f4;
+        }
+
+        .form-label {
+          font-size: 14px;
+          color: #555;
+        }
+
+        .form-text {
+          font-size: 12px;
+          color: #777;
+        }
+
+        .btn {
+          width: 100%;
+          padding: 12px;
+          background-color:rgba(96, 81, 81, 0.74);
+          border: none;
+          color: white;
+          border-radius: 4px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        .btn:hover {
+          background-color:rgb(2,0,36);
+          color: white;
+        }
+
+        .text {
+          text-align: center;
+          margin-top: 20px;
+        }
+
+        .text h3 {
+          color: #333;
+        }
+
+        .text h3 a {
+          color: #4070f4;
+          text-decoration: none;
+        }
+
+        .text h3 a:hover {
+          text-decoration: underline;
+        }
+
+        .input-box.button {
+              margin-top: 30px; /* Adjust this value to move the button further down */
+            }
+
+    </style>
+</head>
+
+<body>
+  <!-- Background Video -->
+  <video class="background-video" autoplay muted loop>
+    <source src="/videos/login_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<div class="wrapper">
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        <div class="input-box">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required aria-describedby="emailHelp">
+        </div>
+        <div class="input-box">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="input-box button">
+            <input type="submit" value="Login" class="btn">
+        </div>
+        <div class="text">
+            <h3>Don't have an account? <a href="/register" style="color: black;">Register here</a></h3>
+        </div>
+    </form>
+</div>
+</body>
+</html>

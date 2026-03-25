@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Providers - SkillConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            background-image: url('/images/remaking.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+    
+        a{
+        margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">SkillConnect</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="explore.html">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="chatbox.html">Chat</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Section -->
+<div class="container mt-5">
+    <!-- Category Heading -->
+    <h2 th:if="${category != null}" class="mb-4"><span th:text="${category}"></span> Professionals</h2>
+    <h2 class="mb-4" th:if="${error != null}" th:text="${error}"></h2> <!-- Error message if available -->
+
+    <div class="row">
+        <!-- Loop through the list of providers -->
+        <div th:each="provider : ${providers}" class="col-md-4 mb-4">
+            <div class="card">
+                <!-- Provider Profile Image -->
+                <img th:src="@{${provider.profileImageUrl} != null ? ${provider.profileImageUrl} : '/images/default-profile.jpg'}"
+                     class="card-img-top"
+                     alt="Provider Image">
+                <div class="card-body">
+                    <!-- Provider Name -->
+                    <h5 class="card-title" th:text="${provider.fullName}">Provider Name</h5>
+
+                    <!-- Specialization -->
+                    <p class="card-text" th:text="'Specializes in ' + ${provider.category}">Specialization</p>
+
+                    <!-- Description -->
+                    <p class="card-text" th:text="${provider.description}">Description goes here</p>
+
+                    <!-- Location (State and City) -->
+                    <p class="card-text" th:text="'Location: ' + ${provider.state} + ', ' + ${provider.city}">Location</p>
+
+                    <!-- Charge per Service -->
+                    <p><strong>Charge per Service:</strong> ₹<span th:text="${provider.chargePerService}">Amount</span></p>
+
+                    <!-- Rating (Dynamic, if available) -->
+                    <p><strong>Rating:</strong> <span th:text="${provider.rating}">⭐⭐⭐⭐⭐</span></p>
+
+                    <!-- Contact and Book Now buttons -->
+                    <a href="/chatbox.html" class="btn btn-primary">Contact</a>
+                    <a th:href="@{/bookserviceprovider(id=${provider.id})}" class="btn btn-success">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+    <p>&copy; 2024 SkillConnect. All rights reserved.</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Logic to check if the user is logged in (this should come from your backend)
+    const isLoggedIn = false; // Set this value based on actual login status from the backend or session
+
+    function handleButtonClick(event, action) {
+        if (!isLoggedIn) {
+            event.preventDefault(); // Prevent the default action
+            alert("Please log in to use this feature."); // Show alert message
+        }
+    }
+</script>
+</body>
+</html>

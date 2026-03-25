@@ -1,0 +1,28 @@
+/* Example custom CSS */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #007bff;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #ffffff;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+footer {
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+}

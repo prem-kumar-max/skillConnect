@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Feedbacks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for star icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/images/providerfeedbacks.png'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+<nav th:insert="fragments/header.html" class="navbar navbar-expand-lg navbar-dark bg-primary"></nav>
+<div class="container mt-5">
+    <h1 class="mb-4">Feedbacks for Provider</h1>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Rating</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="feedback : ${feedbackList}">
+            <td th:text="${feedback.id}"></td>
+            <td th:text="${feedback.user.fullName}">User Name</td>
+            <td>
+                <span th:each="i : ${#numbers.sequence(1, 5)}"
+                      th:classappend="${i <= feedback.rating} ? 'fas fa-star text-warning' : 'far fa-star'"></span>
+            </td>
+            <td th:text="${feedback.description}">Feedback description</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

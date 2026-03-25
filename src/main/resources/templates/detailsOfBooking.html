@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Detail</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+			background-image: url('/images/providerfeebacks.png'); /* Replace with your image URL */
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+		}
+        .table-container {
+      background: rgba(245, 230, 250, 0.9); /* Light purplish-pink background */
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .table-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .table {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .table th {
+      background: linear-gradient(to right, #b565c0, #d9a1e5); /* Purplish-pink gradient */
+      color: white;
+      font-weight: bold;
+      border: 2px solid white;
+      padding: 15px;
+      text-transform: uppercase;
+    }
+
+    .table td {
+      padding: 12px 15px;
+      vertical-align: middle;
+      border: 2px solid white;
+      border-radius: 15px;
+      transition: border-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(181, 101, 192, 0.2); /* Subtle purplish-pink hover effect */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .status-confirmed {
+      background-color: #e9d5f4; /* Light purplish-pink for confirmed status */
+      color: #4e085d; /* Darker purple text */
+      font-weight: bold;
+    }
+
+    .status-cancelled {
+      background-color: #f7d8e9; /* Light purplish-pink for cancelled status */
+      color: #87013c; /* Darker pink text */
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      border-radius: 30px;
+      background-color: #b565c0; /* Purplish-pink button */
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #944aa0; /* Darker purplish-pink on hover */
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Booking Details</h2>
+  <table class="table table-bordered">
+    <tbody>
+    <tr>
+      <th>Booked By</th>
+      <td th:text="${booking.bookedBy}">Booked By</td>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <td th:text="${booking.date}">Date</td>
+    </tr>
+    <tr>
+      <th>Time</th>
+      <td th:text="${booking.time}">Time</td>
+    </tr>
+    <tr>
+      <th>Category</th>
+      <td th:text="${booking.category}">Category</td>
+    </tr>
+    <tr>
+      <th>Charge</th>
+      <td th:text="${booking.charge}">Charge</td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td th:text="${booking.status}">Status</td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/acceptedbookings" class="btn btn-primary">Back to All Bookings</a>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

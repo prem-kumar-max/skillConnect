@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Form Inputs */
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+
+        /* Submit Button */
+        button {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            transform: translateY(-2px);
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #e74c3c;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Admin Login</h2>
+    <form action="/admin/login" method="post">
+        <div>
+            <label for="email" style="display:none;">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div>
+            <label for="password" style="display:none;">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <div th:if="${error != null}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div class="error-message" id="ajax-error-message"></div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let email = document.querySelector('input[name="email"]').value;
+        let password = document.querySelector('input[name="password"]').value;
+
+        fetch('/admin/login/json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email, password: password })
+        })
+        .then(response => response.text())
+        .then(text => {
+            if (text === 'Login successful') {
+                window.location.href = '/admin/dashboard';  // Corrected redirect URL
+            } else {
+                document.getElementById('ajax-error-message').textContent = text;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+</body>
+</html>

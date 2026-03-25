@@ -1,0 +1,295 @@
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Service Provider Registration</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background: linear-gradient(135deg, #8e44ad, #3498db);
+                font-family: Arial, sans-serif;
+                color: #333;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+            }
+            body {
+                background-image: url('/images/professtionalregistration.svg'); /* Replace with your image URL */
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+            }
+
+            .container {
+                max-width: 600px;
+                background-color: rgba(248, 249, 250, 0.68);
+                padding: 40px;
+                border-radius: 12px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                animation: fadeIn 1s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: rgb(2,0,36);
+            }
+
+            .form-label {
+                font-weight: bold;
+            }
+
+            .form-control, .form-select {
+                border-radius: 8px;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+            }
+
+            .btn {
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 16px;
+                background-color:rgb(2,0,36);
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+
+            .btn:hover {
+                transform: scale(1.05);
+                background-color:#aa0056; !important;
+            }
+
+            .form-text {
+                font-size: 0.875rem;
+            }
+
+            .mt-3 a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .mt-3 a:hover {
+                text-decoration: underline;
+            }
+
+            .backdrop {
+                backdrop-filter: blur(5px);
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 30px;
+                    width: 90%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    <!-- Registration Form Container -->
+    <div class="container backdrop">
+        <h1>Service Provider Registration</h1>
+        <div class="text-center">
+            <p th:text="${error}" style="color: red;"></p>
+        </div>
+        <form action="/registerprovider" method="POST" enctype="multipart/form-data">
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,16}$"
+                    placeholder="Enter your password" required>
+                <small class="form-text text-muted">
+                    Password must be 8-16 characters long, include uppercase, lowercase, a number, and a special character.
+                </small>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone"
+                    pattern="[0-9]{10}" maxlength="10"
+                    placeholder="Enter your phone number" required>
+                <small class="form-text text-muted">Enter a 10-digit phone number.</small>
+            </div>
+
+            <!-- State -->
+            <div class="mb-3">
+                <label for="stateSelect" class="form-label">State</label>
+                <select class="form-select" id="stateSelect" name="state" onchange="updateCities()" required>
+                    <option value="">Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Puducherry">Puducherry</option>
+                    <option value="Ladakh">Ladakh</option>
+                </select>
+            </div>
+
+            <!-- City -->
+            <div class="mb-3">
+                <label for="citySelect" class="form-label">City</label>
+                <select class="form-select" id="citySelect" name="city" required>
+                    <option value="">Select City</option>
+                </select>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category" name="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Cooking">Cooking</option>
+                    <option value="Music">Music</option>
+                    <option value="Homemaking">Interior designing</option>
+                </select>
+            </div>
+
+            <!-- Charge -->
+            <div class="mb-3">
+                <label for="charge" class="form-label" id="chargeLabel">Charge</label>
+                <input type="number" class="form-control" id="charge" name="chargePerService" placeholder="Enter your charge" required>
+                <small class="form-text text-muted">Give the approximate value charge will depend on the user requirement</small>
+            </div>
+
+            <!-- Profile Image -->
+            <div class="mb-3">
+                <label for="profileImageUrl" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profileImageUrl" name="profileImageUrl" accept=".jpg,.jpeg,.png,.gif" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <p class="mt-3 text-center">Already have an account? <a href="/providerlogin">Login here</a></p>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const cities = {
+            "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Rajahmundry", "Tirupati", "Kurnool", "Anantapur", "Nellore", "Chittoor", "Srikakulam"],
+            "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun", "Ziro", "Pasighat", "Tezu", "Bomdila"],
+            "Assam": ["Guwahati", "Dibrugarh", "Jorhat", "Silchar", "Nagaon", "Tinsukia", "Barpeta", "Tezpur", "Bongaigaon"],
+            "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnia", "Munger", "Darbhanga", "Ara", "Sasaram", "Motihari"],
+            "Chhattisgarh": ["Raipur", "Bilaspur", "Durg", "Korba", "Jagdalpur", "Raigarh", "Rajnandgaon", "Ambikapur"],
+            "Goa": ["Panaji", "Vasco da Gama", "Margao", "Mapusa", "Ponda", "Bicholim", "Cortalim"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar", "Nadiad", "Anand", "Gandhinagar", "Junagadh"],
+            "Haryana": ["Chandigarh", "Gurugram", "Faridabad", "Ambala", "Hisar", "Karnal", "Panipat", "Rohtak", "Sonipat", "Yamunanagar"],
+            "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Kullu", "Solan", "Mandi", "Bilaspur", "Kangra", "Hamirpur", "Una"],
+            "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro Steel City", "Hazaribagh", "Giridih", "Deoghar", "Dumka", "Chaibasa"],
+            "Karnataka": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Davanagere", "Belagavi", "Ballari", "Shimoga", "Tumakuru", "Udupi"],
+            "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kollam", "Thrissur", "Kannur", "Palakkad", "Malappuram", "Alappuzha", "Pathanamthitta"],
+            "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain", "Sagar", "Ratlam", "Dewas", "Satna", "Rewa"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane", " Aurangabad", "Solapur", "Kolhapur", "Nanded", "Akola"],
+            "Manipur": ["Imphal", "Thoubal", "Bishnupur", "Churachandpur", "Kangpokpi", "Tamenglong", "Senapati"],
+            "Meghalaya": ["Shillong", "Tura", "Jowai", "Nongstoin", "Williamnagar", "Baghmara", "Mawkyrwat"],
+            "Mizoram": ["Aizawl", "Lunglei", "Champhai", "Siaha", "Serchhip", "Kolasib", "Lawngtlai"],
+            "Nagaland": ["Kohima", "Dimapur", "Mokokchung", "Wokha", "Tuensang", "Phek", "Zunheboto"],
+            "Odisha": ["Bhubaneswar", "Cuttack", "Berhampur", "Rourkela", "Puri", "Sambalpur", "Balasore", "Khurda", "Angul"],
+            "Punjab": ["Chandigarh", "Amritsar", "Jalandhar", "Ludhiana", "Patiala", "Bathinda", "Moga", "Hoshiarpur", "Firozpur", "Rupnagar"],
+            "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Kota", "Ajmer", "Bikaner", "Alwar", "Sikar", "Chittorgarh", "Pali"],
+            "Sikkim": ["Gangtok", "Namchi", "Mangan", "Rangpo", "Jorethang", "Pakyong", "Gyalshing"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli", "Erode", "Vellore", "Dindigul", "Cuddalore"],
+            "Telangana": ["Hyderabad", "Warangal", "Khammam", "Karimnagar", "Nizamabad", "Mahabubnagar", "Nalgonda", "Ramagundam"],
+            "Tripura": ["Agartala", "Udaipur", "Dharmanagar", "Sabroom", "Belonia", "Amarpur", "Kailashahar"],
+            "Uttar Pradesh": ["Lucknow", "Kanpur", "Agra", "Varanasi", "Meerut", "Allahabad", "Ghaziabad", "Noida", "Bareilly", "Moradabad"],
+            "Uttarakhand": ["Dehradun", "Nainital", "Haridwar", "Rishikesh", "Roorkee", "Haldwani", "Kashipur", "Haridwar"],
+            "West Bengal": ["Kolkata", "Siliguri", "Durgapur", "Asansol", "Howrah", "Malda", "Burdwan", "Suri", "Jalpaiguri", "Haldia"]
+        };
+
+        function updateCities() {
+            const state = document.getElementById("stateSelect").value;
+            const citySelect = document.getElementById("citySelect");
+            citySelect.innerHTML = "<option value=''>Select City</option>";
+
+            if (state && cities[state]) {
+                cities[state].forEach(city => {
+                    const option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+
+        document.getElementById("category").addEventListener("change", function () {
+            const category = this.value;
+            const chargeLabel = document.getElementById("chargeLabel");
+
+            switch (category) {
+                case "Cooking":
+                    chargeLabel.textContent = "Charge per Item (in Rs)";
+                    break;
+                case "Music":
+                    chargeLabel.textContent = "Charge per Concert (in Rs)";
+                    break;
+                case "Homemaking":
+                    chargeLabel.textContent = "Charge per Room (in Rs)";
+                    break;
+                default:
+                    chargeLabel.textContent = "Charge (in Rs)";
+            }
+        });
+    </script>
+    </body>
+    </html>

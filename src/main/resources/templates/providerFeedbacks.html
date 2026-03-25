@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Feedbacks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add FontAwesome for star icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+
+        }
+        body {
+			background-image: url('/images/providerfeebacks.png'); /* Replace with your image URL */
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+		}
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 900px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        thead {
+            background: #333;
+            color: white;
+        }
+        tbody tr:nth-child(odd) {
+            background: #f9f9f9;
+        }
+        tbody tr:nth-child(even) {
+            background: #f1f1f1;
+        }
+        .fa-star {
+            margin-right: 2px;
+        }
+        .text-warning {
+            color: #ffc107;
+        }
+        td, th {
+            text-align: center;
+            padding: 12px;
+        }
+        td:last-child {
+            text-align: left;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            td, th {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav th:insert="fragments/provider-header.html" class="navbar navbar-expand-lg navbar-dark bg-primary"></nav>
+<div class="container mt-5">
+    <h1 class="mb-4">Feedbacks for Provider ID: <span th:text="${providerId}"></span></h1>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Rating</th>
+            <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="feedback : ${feedbacks}">
+            <td th:text="${feedback.id}">1</td>
+            <td th:text="${feedback.user.fullName}">User Name</td>
+            <td>
+                <span th:each="i : ${#numbers.sequence(1, 5)}"
+                      th:classappend="${i <= feedback.rating} ? 'fas fa-star text-warning' : 'far fa-star'"></span>
+            </td>
+            <td th:text="${feedback.description}">Sample comment</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SkillConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+           background-image: url('/images/bookingbackground.svg'); /* Replace with your image URL */
+           background-size: cover;
+           background-position: center;
+           background-attachment: fixed;
+           background-repeat: no-repeat;
+       }
+       .btn-primary {
+        background-color:#aa0056; /* Custom green for Update Profile button */
+        color: #fff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color:rgb(2,0,36);/* Darker shade on hover */
+    }
+
+     
+   </style>
+</head>
+<body>
+    <nav th:insert="fragments/header.html" class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+
+    <div class="container mt-5">
+        <h2>Book service provider</h2>
+        <form action="/bookprovider" method="POST">
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label">Time</label>
+                <input type="time" class="form-control" id="time" name="time" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Book now</button>
+        </form>
+    </div>
+
+    <script>
+        // Get the current date and time
+        const now = new Date();
+
+        // Format the date to yyyy-mm-dd
+        const currentDate = now.toISOString().split('T')[0];
+
+        // Set the min attribute for the date input
+        const dateInput = document.getElementById('date');
+        dateInput.setAttribute('min', currentDate);
+
+        // Format the time to HH:MM
+        const currentTime = now.toTimeString().split(' ')[0].slice(0, 5);
+
+        // Check if the selected date is today and update the time input
+        const timeInput = document.getElementById('time');
+        dateInput.addEventListener('input', () => {
+            if (dateInput.value === currentDate) {
+                timeInput.setAttribute('min', currentTime);
+            } else {
+                timeInput.removeAttribute('min');
+            }
+        });
+    </script>
+</body>
+
+</html>

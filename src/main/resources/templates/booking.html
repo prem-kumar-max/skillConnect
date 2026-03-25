@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - SkillConnect</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Book a Service</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/user_dashboard">Dashboard</a>
+        </nav>
+    </header>
+
+    <div class="booking-container">
+        <h2>Provider Information</h2>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Service:</strong> Cooking</p>
+        <p><strong>Rating:</strong> 4.5</p>
+
+        <h3>Book a Time Slot</h3>
+        <input type="datetime-local" id="booking-time" required>
+        <button onclick="bookService()">Book Now</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SkillConnect. All rights reserved.</p>
+    </footer>
+</body>
+</html>

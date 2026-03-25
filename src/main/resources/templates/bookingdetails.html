@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Booking Details</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-image: url('/images/bookings1.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: white;
+                min-height: 100vh; /* Ensures the body has enough height to show the background */
+            } 
+        
+        
+
+        
+            </style>  
+    </head>
+    <body>
+    <nav th:insert="fragments/header.html" class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Booking Details</h2>
+
+        <!-- Error Message -->
+        <div th:if="${errorMessage}" class="alert alert-danger text-center">
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <!-- Check if there are any bookings -->
+        <div th:if="${#lists.isEmpty(bookings)}">
+            <p class="text-center text-muted" style="color: white;">No bookings found.</p>
+        </div>
+
+        <!-- Display bookings in a table -->
+        <div th:if="${!#lists.isEmpty(bookings)}">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>Booking Date</th>
+                    <th>Booking Time</th>
+                    <th>Provider Name</th>
+                    <th>Category</th>
+                    <th>Charge</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.date}" style="color: white;">Booking Date</td>
+                    <td th:text="${booking.time}" style="color: white;">Booking Time</td>
+                    <td th:text="${booking.name}" style="color: white;">Provider Name</td>
+                    <td th:text="${booking.category}" style="color: white;">Category</td>
+                    <td th:text="${booking.charge}" style="color: white;">Charge</td>
+                    <td th:text="${booking.status}" style="color: white;">Status</td>
+                    <td>
+                        <a th:if="${booking.status == 'ACCEPTED'}"
+                           th:href="@{/create(id=${booking.providerId})}"
+                           class="btn btn-success btn-sm">Feedback</a>
+
+                        <!-- Message displayed when status is 'REJECTED' -->
+                        <span th:if="${booking.status == 'REJECTED'}" class="text-danger">Booking Rejected</span>
+                        <!-- Cancel booking form >
+                        <form th:action="@{/deleteBooking}" method="post" class="d-inline">
+                            <input type="hidden" name="bookingId" th:value="${booking.id}">
+                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                        </form-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

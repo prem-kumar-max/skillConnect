@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Provider Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="mb-4">Service Provider Profile</h1>
+  <center><p th:text="${error}" style="color: red;"></p></center>
+  <form action="/saveprovider" method="POST">
+    <!-- Full Name -->
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="fullName" name="fullName" th:value="${provider.fullName}" required>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" th:value="${provider.email}" required>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" th:value="${provider.password}" required>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="phone" name="phone" th:value="${provider.phone}" required>
+    </div>
+
+    <!-- State -->
+    <div class="mb-3">
+      <label for="stateSelect" class="form-label">State</label>
+      <select class="form-select" id="stateSelect" name="state" th:value="${provider.state}" required>
+        <option value="" disabled selected>Select State</option>
+        <!-- List of states -->
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option value="Assam">Assam</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="Goa">Goa</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal Pradesh">Himachal Pradesh</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Manipur">Manipur</option>
+        <option value="Meghalaya">Meghalaya</option>
+        <option value="Mizoram">Mizoram</option>
+        <option value="Nagaland">Nagaland</option>
+        <option value="Odisha">Odisha</option>
+        <option value="Punjab">P unjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Sikkim">Sikkim</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Tripura">Tripura</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Uttarakhand">Uttarakhand</option>
+        <option value="West Bengal">West Bengal</option>
+        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+        <option value="Lakshadweep">Lakshadweep</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Puducherry">Puducherry</option>
+        <option value="Ladakh">Ladakh</option>
+      </select>
+    </div>
+
+    <!-- City -->
+    <div class="mb-3">
+      <label for="citySelect" class="form-label">City</label>
+      <select class="form-select" id="citySelect" name="city" th:value="${provider.city}" required>
+        <option value="" disabled selected>Select City</option>
+        <!-- Cities will be dynamically populated -->
+      </select>
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" id="category" name="category" th:value="${provider.category}" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="Cooking">Cooking</option>
+        <option value="Music">Music</option>
+        <option value="Homemaking">Homemaking</option>
+      </select>
+    </div>
+
+    <!-- Charge -->
+    <div class="mb-3">
+      <label for="charge" class="form-label" id="chargeLabel">Charge</label>
+      <input type="number" class="form-control" id="charge" name="chargePerService" th:value="${provider.chargePerService}" required>
+    </div>
+
+    <!-- Profile Image URL -->
+    <div class="mb-3">
+      <label for="profileImage" class="form-label">Profile Image</label>
+      <input type="text" class="form-control" id="profileImage" name="profileImageUrl" th:value="${provider.profileImageUrl}" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Register</button>
+    <p class="mt-3">Already have an account? <a href="/providerlogin">Login here</a></p>
+  </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const cities = {
+      "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Rajahmundry", "Tirupati"],
+      "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun"],
+      "Assam": ["Guwahati", "Dibrugarh", "Jorhat", "Silchar", "Nagaon"],
+      "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnea"],
+      "Chhattisgarh": ["Raipur", "Bhilai", "Korba", "Durg", "Bilaspur"],
+      "Goa": ["Panaji", "Margao", "Vasco da Gama", "Mapusa", "Ponda"],
+      "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+      "Haryana": ["Chandigarh", "Gurugram", "Faridabad", "Karnal", "Ambala"],
+      "Himachal Pradesh": ["Shimla", "Kullu", "Manali", "Dharamshala", "Solan"],
+      "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh"],
+      "Karnataka": ["Bengaluru", "Mysuru", "Hubballi", "Mangalore", " Belagavi"],
+      "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kottayam", "Thrissur"],
+      "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+      "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"],
+      "Manipur": ["Imphal", "Thoubal"],
+      "Meghalaya": ["Shillong", "Tura", "Jowai"],
+      "Mizoram": ["Aizawl", "Lunglei"],
+      "Nagaland": ["Kohima", "Dimapur"],
+      "Odisha": ["Bhubaneswar", "Cuttack", "Berhampur", "Rourkela", "Puri"],
+      "Punjab": ["Chandigarh", "Amritsar", "Ludhiana", "Jalandhar", "Patiala"],
+      "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Ajmer", "Bikaner"],
+      "Sikkim": ["Gangtok", "Namchi"],
+      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Trichy", "Chidambaram"],
+      "Telangana": ["Hyderabad", "Warangal", "Khammam", "Karimnagar", "Nizamabad"],
+      "Tripura": ["Agartala", "Udaipur", "Dharmanagar"],
+      "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Meerut"],
+      "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rishikesh", "Almora"],
+      "West Bengal": ["Kolkata", "Darjeeling", "Siliguri", "Howrah", "Asansol"],
+      "Andaman and Nicobar Islands": ["Port Blair"],
+      "Chandigarh": ["Chandigarh"],
+      "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Diu"],
+      "Lakshadweep": ["Kavaratti"],
+      "Delhi": ["New Delhi"],
+      "Puducherry": ["Puducherry"],
+      "Ladakh": ["Leh", "Kargil"]
+  };
+
+  function updateCities() {
+      const state = document.getElementById("stateSelect").value;
+      const citySelect = document.getElementById("citySelect");
+
+      // Clear existing cities
+      citySelect.innerHTML = "<option value='' disabled selected>Select City</option>";
+
+      // Populate new cities
+      if (state && cities[state]) {
+          cities[state].forEach(city => {
+              const option = document.createElement("option");
+              option.value = city;
+              option.textContent = city;
+              citySelect.appendChild(option);
+          });
+      }
+  }
+
+  // Update charge label dynamically based on category
+  document.getElementById("category").addEventListener("change", function () {
+      const category = this.value;
+      const chargeLabel = document.getElementById("chargeLabel");
+
+      switch (category) {
+          case "Cooking":
+              chargeLabel.textContent = "Charge per Item (in Rs)";
+              break;
+          case "Music":
+              chargeLabel.textContent = "Charge per Concert (in Rs)";
+              break;
+          case "Homemaking":
+              chargeLabel.textContent = "Charge per Room (in Rs)";
+              break;
+          default:
+              chargeLabel.textContent = "Charge (in Rs)";
+      }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+      updateCities(); // Call to populate cities based on selected state
+  });
+</script>
+</body>
+</html>
